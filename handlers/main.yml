@@ -1,0 +1,7 @@
+---
+
+- name: Restart Hauk
+  docker_container:
+    name: "{{ hauk_name }}"
+    state: started
+    restart: true

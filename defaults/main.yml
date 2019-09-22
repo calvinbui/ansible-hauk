@@ -1,0 +1,12 @@
+---
+# https://hub.docker.com/r/bilde2910/hauk
+hauk_name: hauk
+hauk_image: bilde2910/hauk
+hauk_config_directory: /tmp/hauk
+hauk_ports:
+  - 8080:80
+hauk_docker_additional_options:
+  restart_policy: unless-stopped
+
+hauk_domain: example.com
+hauk_password: password

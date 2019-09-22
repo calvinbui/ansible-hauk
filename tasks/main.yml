@@ -1,0 +1,23 @@
+- name: Create Hauk config directory
+  file:
+    path: "{{ hauk_config_directory }}"
+    state: directory
+
+- name: Copy Hauk config
+  template:
+    src: config.php.j2
+    dest: "{{ hauk_config_directory }}/config.php"
+  notify: Restart Hauk
+
+- name: Set Docker container parameters
+  set_fact:
+    hauk_container_parameters:
+      name: "{{ hauk_name }}"
+      image: "{{ hauk_image }}"
+      state: started
+      published_ports: "{{ hauk_ports }}"
+      volumes:
+        - "{{ hauk_config_directory }}:/etc/hauk"
+
+- name: Create Hauk container
+  docker_container: "{{ hauk_container_parameters | combine(hauk_docker_additional_options) }}"
